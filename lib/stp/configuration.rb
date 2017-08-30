@@ -22,4 +22,8 @@ module Stp
   def self.configure
     yield configuration
   end
+
+  def self.reset
+    @configuration = Configuration.new
+  end
 end
