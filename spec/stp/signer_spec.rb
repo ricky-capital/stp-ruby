@@ -6,7 +6,7 @@ RSpec.configure do |c|
 end
 
 RSpec.describe Stp::Signer do
-  context 'when they private key path has not been specified' do
+  context 'when the private key path has not been specified' do
     it 'raises a configuration exception' do
       expect { Stp::Signer.new }.to raise_error('Configuration error')
     end
@@ -46,5 +46,9 @@ RSpec.describe Stp::Signer do
         'QX33IYzsfdd0zOB9dD+hhDa9xhp37HTwsRdGiZQRmVp/woA9s0eCSzjFdBhlU5gQ3QHgcpxV+hccaCaq7+fcyliC/caRH040pzkxYVk+BdqQfGRhyUG9m0GrjHMmfn6r5I+WdpmjA5587+F7OexBVqH7hXaQQxnaTN6V7pmCnuI='
       )
     end
+  end
+
+  after :each do
+    Stp.reset
   end
 end
