@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe Stp::Configuration do
+  after :each do
+    Stp.reset
+  end
+  
   context 'when no wsdl is specified' do
     it 'defaults to the demo' do
       expect(Stp.configuration.wsdl).to eq(
@@ -40,9 +44,5 @@ RSpec.describe Stp::Configuration do
 
       expect(Stp.configuration.key_passphrase).to eq passphrase
     end
-  end
-
-  after :each do
-    Stp.reset
   end
 end

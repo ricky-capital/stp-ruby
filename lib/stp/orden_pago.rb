@@ -6,6 +6,12 @@ module Stp
 
     client wsdl: Stp.configuration.wsdl
 
+    global :pretty_print_xml, true
+    global :log, true
+    global :log_level, Stp.configuration.soap_log_level
+    global :env_namespace, :soapenv
+    global :namespace_identifier, :h2h
+
     operations :registra_orden
 
     attr_accessor :institucion_contraparte, :empresa, :fecha_operacion,
@@ -78,19 +84,25 @@ module Stp
     # usuario
 
     def initialize(params = {})
-      @params = params
-      params.each { |key, value| instance_variable_set("@#{key}", value) }
+      params.each do |key, value|
+        instance_variable_set("@#{key}", value) if respond_to?(key)
+      end
     end
 
-    def sign
-      return false if !valid?
+    def call
+      return false unless sign
 
-      signer = Signer.new
-      @firma = signer.sign(to_s)
+      registra_orden(message: to_message)
+    end
+
+    def to_message
+      instance_variables.map do |attr|
+        [attr.to_s.gsub('@', '').to_sym, instance_variable_get(attr)]
+      end.to_h
     end
 
     def to_s
-      data = <<~HEREDOC
+      data = <<~HEREDOC.tr("\n", '')
         ||
         #{@institucion_contraparte}|
         #{@empresa}|
@@ -98,7 +110,7 @@ module Stp
         #{@folio_origen}|
         #{@clave_rastreo}|
         #{@institucion_operante}|
-        #{'%.2f' % @monto}|
+        #{'%.2f' % (@monto || 0.0)}|
         #{@tipo_pago}|
         #{@tipo_cuenta_ordenante}|
         #{@nombre_ordenante}|
@@ -125,11 +137,17 @@ module Stp
         #{@usuario}|
         #{@medio_entrega}|
         #{@prioridad}|
-        #{'%.2f' % @iva}
+        #{'%.2f' % (@iva || 0.0)}
         ||
       HEREDOC
-
-      data.tr("\n", '')
     end
+
+    private
+
+      def sign
+        return false unless valid?
+
+        @firma = Signer.new.sign(to_s)
+      end
   end
 end
