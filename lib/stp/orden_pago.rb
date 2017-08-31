@@ -97,12 +97,12 @@ module Stp
 
     def to_message
       instance_variables.map do |attr|
-        [attr.to_s.gsub('@', '').to_sym, instance_variable_get(attr)]
+        [attr.to_s.delete('@').to_sym, instance_variable_get(attr)]
       end.to_h
     end
 
     def to_s
-      data = <<~HEREDOC.tr("\n", '')
+      <<~HEREDOC.tr("\n", '')
         ||
         #{@institucion_contraparte}|
         #{@empresa}|
