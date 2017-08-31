@@ -5,6 +5,9 @@
 version: 2
 jobs:
   build:
+    environment:
+      CC_TEST_REPORTER_ID: 3bfc0c14c3dfe629a31a12c3ca5130cd08730bc5a67bb7de4e7da28a4cbd1714
+
     docker:
       # specify the version you desire here
        - image: circleci/ruby:2.4.1-node-browsers
@@ -48,7 +51,6 @@ jobs:
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
 
             bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
                             --out /tmp/test-results/rspec.xml \
                             --format progress \
                             "${TEST_FILES}"
