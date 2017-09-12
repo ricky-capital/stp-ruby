@@ -2,21 +2,23 @@
 <soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:h2h="http://h2h.integration.spei.enlacefi.lgec.com/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
   <soapenv:Body>
     <h2h:registraOrden>
-      <empresa>pruebas</empresa>
-      <claveRastreo>IACH0OEE80002</claveRastreo>
-      <conceptoPago>SWI SPEI Payment Ñ á é</conceptoPago>
-      <cuentaBeneficiario>110180077000000018</cuentaBeneficiario>
-      <cuentaOrdenante>846180000050000011</cuentaOrdenante>
-      <referenciaNumerica>2</referenciaNumerica>
-      <monto>4600000.82</monto>
-      <tipoCuentaBeneficiario>40</tipoCuentaBeneficiario>
-      <tipoPago>1</tipoPago>
-      <institucionContraparte>90633</institucionContraparte>
-      <nombreBeneficiario>alfredo</nombreBeneficiario>
-      <institucionOperante>46</institucionOperante>
-      <iva>16</iva>
-      <rfcCurpBeneficiario>RFCBEN</rfcCurpBeneficiario>
-      <firma>hHs87KUKWyYOD/MYPHinBa2UXTAc3zxXoTu6zouzlWpKY24N/OZty5rpVeCOaihiFmrrL8f5Adx5CY60y3GPHtObPCXq7pAX+NKtKee8oq1ndKrGjDhTVeT0yOtFLkpMB7CZ+gUmczwQsW2JaIA9V6cFPr14tqczDd9/WIZarPE=</firma>
+      <ordenPago>
+        <empresa>pruebas</empresa>
+        <claveRastreo>IACH0OEE80002</claveRastreo>
+        <conceptoPago>SWI SPEI Payment Ñ á é</conceptoPago>
+        <cuentaBeneficiario>110180077000000018</cuentaBeneficiario>
+        <cuentaOrdenante>846180000050000011</cuentaOrdenante>
+        <referenciaNumerica>2</referenciaNumerica>
+        <monto>4600000.82</monto>
+        <tipoCuentaBeneficiario>40</tipoCuentaBeneficiario>
+        <tipoPago>1</tipoPago>
+        <institucionContraparte>90633</institucionContraparte>
+        <nombreBeneficiario>alfredo</nombreBeneficiario>
+        <institucionOperante>46</institucionOperante>
+        <iva>16</iva>
+        <rfcCurpBeneficiario>RFCBEN</rfcCurpBeneficiario>
+        <firma>hHs87KUKWyYOD/MYPHinBa2UXTAc3zxXoTu6zouzlWpKY24N/OZty5rpVeCOaihiFmrrL8f5Adx5CY60y3GPHtObPCXq7pAX+NKtKee8oq1ndKrGjDhTVeT0yOtFLkpMB7CZ+gUmczwQsW2JaIA9V6cFPr14tqczDd9/WIZarPE=</firma>
+      </ordenPago>
     </h2h:registraOrden>
   </soapenv:Body>
 </soapenv:Envelope>

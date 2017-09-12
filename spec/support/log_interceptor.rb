@@ -16,8 +16,4 @@ module LogInterceptor
   def self.get_intercepted_request
     @@intercepted_request
   end
-
-  def self.reset_intercepted_request
-    @@intercepted_request = ''
-  end
 end

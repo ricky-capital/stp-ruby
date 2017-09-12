@@ -96,9 +96,12 @@ module Stp
     end
 
     def to_message
-      instance_variables.map do |attr|
-        [attr.to_s.delete('@').to_sym, instance_variable_get(attr)]
-      end.to_h
+      {
+        orden_pago:
+          instance_variables.select { |attr| attr != :@errors}.map do |attr|
+            [attr.to_s.delete('@').to_sym, instance_variable_get(attr)]
+          end.to_h
+      }
     end
 
     def to_s

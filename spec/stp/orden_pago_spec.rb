@@ -77,6 +77,7 @@ RSpec.describe Stp::OrdenPago do
       savon.mock!
 
       order = build_order
+      order.send(:sign)
 
       response = File.read('spec/fixtures/orden_pago_response.xml')
 
