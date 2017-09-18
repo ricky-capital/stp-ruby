@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+  <S:Body>
+    <ns0:registraOrdenesResponse xmlns:ns0="http://h2h.integration.spei.enlacefi.lgec.com/">
+      <return>
+        <descripcionError>Orden duplicada. Rastreo {IACH0OEE80002} Fecha Oper. {20170918} Inst. Oper. {46} Inst. Contra. {90633} Monto {4600000.82} Tipo Pago {1} Cuenta Orden. {846180000050000011} Cuenta Bene. {110180077000000018}</descripcionError>
+        <id>-2</id>
+      </return>
+    </ns0:registraOrdenesResponse>
+  </S:Body>
+</S:Envelope>

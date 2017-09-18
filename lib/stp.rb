@@ -11,6 +11,9 @@ require 'stp/version'
 # Utils
 require 'stp/validation'
 
+# Errors
+require 'stp/error'
+
 # Resources
 require 'stp/signer'
 require 'stp/client'
