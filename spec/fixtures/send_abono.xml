@@ -1,0 +1,17 @@
+<abono>
+  <clave>1101</clave>
+  <fechaOperacion>20100323</fechaOperacion>
+  <institucionOrdenante>846</institucionOrdenante>
+  <institucionBeneficiaria>90646</institucionBeneficiaria>
+  <claveRastreo>GEM801</claveRastreo>
+  <monto>200</monto>
+  <nombreBeneficiario>alfredo</nombreBeneficiario>
+  <tipoCuentaBeneficiario>40</tipoCuentaBeneficiario>
+  <cuentaBeneficiario>110180077000000018</cuentaBeneficiario>
+  <rfcCurpBeneficiario>RFCBEN</rfcCurpBeneficiario>
+  <tipoPago>7</tipoPago>
+  <tipoOperacion>4</tipoOperacion>
+  <conceptoPago>prueba</conceptoPago>
+  <referenciaNumerica>2</referenciaNumerica>
+  <empresa>STP</empresa>
+</abono>
