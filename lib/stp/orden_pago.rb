@@ -92,7 +92,20 @@ module Stp
     def call
       return false unless sign
 
-      registra_orden(message: to_message)
+      response = registra_orden(message: to_message)
+
+      raise Error.new('Response Error', response) unless response.success?
+
+      begin
+        body = response.body[:registra_orden_response][:return]
+        id = body[:id].to_i
+
+        raise Error.new(body[:descripcion_error], response) unless id > 0
+
+        return id
+      rescue NoMethodError => e
+        raise Error.new('Malformed XML Error', response)
+      end
     end
 
     def to_message

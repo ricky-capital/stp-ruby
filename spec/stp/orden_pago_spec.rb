@@ -49,7 +49,6 @@ RSpec.describe Stp::OrdenPago do
 
     it 'generates the signature correctly' do
       order = build_order
-
       order.send(:sign)
 
       expect(order.firma).to eq(
@@ -84,7 +83,25 @@ RSpec.describe Stp::OrdenPago do
       savon.expects(:registra_orden).with(message: order.to_message)
         .returns(response)
 
-      expect(order.call.to_xml).to eq response
+      expect(order.call).to eq 3668949
+
+      savon.unmock!
+    end
+  end
+
+  context 'when given invalid attributes' do
+    it 'raises an error' do
+      savon.mock!
+
+      order = build_order
+      order.send(:sign)
+
+      response = File.read('spec/fixtures/orden_pago_error_response.xml')
+
+      savon.expects(:registra_orden).with(message: order.to_message)
+        .returns(response)
+
+      expect { order.call }.to raise_error(Stp::Error)
 
       savon.unmock!
     end

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
   <S:Body>
-    <ns0:registraOrdenesResponse xmlns:ns0="http://h2h.integration.spei.enlacefi.lgec.com/">
-      <id>3668949</id>
-    </ns0:registraOrdenesResponse>
+    <ns0:registraOrdenResponse xmlns:ns0="http://h2h.integration.spei.enlacefi.lgec.com/">
+      <return>
+        <id>3668949</id>
+      </return>
+    </ns0:registraOrdenResponse>
   </S:Body>
 </S:Envelope>
