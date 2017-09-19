@@ -19,6 +19,7 @@ require 'stp/signer'
 require 'stp/client'
 require 'stp/orden_pago'
 require 'stp/abono'
+require 'stp/estado'
 
 module Stp
   #
