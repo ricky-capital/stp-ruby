@@ -20,7 +20,7 @@ RSpec.describe Stp::Abono do
     it 'raises an exception' do
       expect {
         Stp::Abono.new(File.read('spec/fixtures/send_abono_error.xml'))
-      }.to raise_error(Stp::Error, Stp::Abono::REJECT_REASONS['18'])
+      }.to raise_error(Stp::Devolucion, Stp::Devolucion::REJECT_REASONS['18'])
     end
   end
 end

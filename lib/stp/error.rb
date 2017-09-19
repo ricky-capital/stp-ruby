@@ -8,4 +8,29 @@ module Stp
       @response = response
     end
   end
+
+  class Devolucion < Error
+    REJECT_REASONS = {
+       '1': 'Cuenta inexistente',
+       '2': 'Cuenta bloqueada',
+       '3': 'Cuenta cancelada',
+       '5': 'Cuenta en otra divisa',
+       '6': 'Cuenta no pertenece al banco receptor',
+      '13': 'Beneficiario no reconoce el pago',
+      '14': 'Falta información mandatorio para completar el pago',
+      '15': 'Tipo de pago erróneo',
+      '16': 'Tipo de operación errónea',
+      '17': 'Tipo de cuenta no corresponde',
+      '18': 'A solicitud del emisor',
+      '19': 'Carácter invalido.',
+      '20': 'Excede el límite de saldo autorizado de la cuenta.',
+      '21': 'Excede el límite de abonos permitidos en el mes en la cuenta.',
+      '22': 'Número de telefonía móvil no registrado.',
+      '23': 'Cuenta adicional no recibe pagos que no proceden de Banxico.'
+    }
+
+    def initialize(codigo_error, response = nil)
+      super(REJECT_REASONS[codigo_error], response)
+    end
+  end
 end
