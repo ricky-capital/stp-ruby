@@ -2,6 +2,7 @@ require 'openssl'
 require 'base64'
 require 'savon'
 require 'active_support/notifications'
+require 'active_support/core_ext/array'
 
 # Config
 require 'stp/configuration'
@@ -34,6 +35,10 @@ module Stp
         log.progname = name
         log.level = configuration.log_level
       end
+    end
+
+    def instrument(event, payload)
+      ActiveSupport::Notifications.instrument(event, payload)
     end
 
     def subscribe(event, callable = Proc.new)

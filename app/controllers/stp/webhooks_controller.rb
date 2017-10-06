@@ -15,13 +15,11 @@ module Stp
         begin
           @resource = resource_class.new(request.raw_post)
 
-          ActiveSupport::Notifications
-            .instrument(resource_class::EVENT_NAME, resource: @resource)
+          Stp.instrument(resource_class::EVENT_NAME, resource: @resource)
 
           render_ok
         rescue Stp::Devolucion => e
-          ActiveSupport::Notifications
-            .instrument(Stp::Devolucion::EVENT_NAME, resource: e)
+          Stp.instrument(Stp::Devolucion::EVENT_NAME, resource: e)
 
           render_ok
         rescue => e
