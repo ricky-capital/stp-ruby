@@ -104,7 +104,7 @@ module Stp
 
         return id
       rescue NoMethodError => e
-        raise Error.new('Malformed XML Error', response)
+        raise Error.new("Malformed XML Error: #{e.message}", response)
       end
     end
 

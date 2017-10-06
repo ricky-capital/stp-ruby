@@ -1,5 +1,7 @@
 module Stp
   class Abono
+    EVENT_NAME = 'abono'.freeze
+
     include Validation
 
     attr_reader :clave, :fecha_operacion, :institucion_ordenante,
@@ -26,8 +28,9 @@ module Stp
         @monto = @monto.to_f unless @monto.nil?
       elsif doc.xpath('/devolucion').any?
         @codigo_error = doc.xpath('/devolucion/codigoError').first.text
+        @clave = doc.xpath('/devolucion/clave').first.text
 
-        raise Devolucion.new(@codigo_error, xml)
+        raise Devolucion.new(@codigo_error, @clave, self.class, xml)
       else
         raise Error.new('Malformed XML Error', xml)
       end

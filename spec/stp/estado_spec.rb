@@ -28,5 +28,14 @@ RSpec.describe Stp::Abono do
         Stp::Estado.new(File.read('spec/fixtures/estado_error.xml'))
       }.to raise_error(Stp::Devolucion, Stp::Devolucion::REJECT_REASONS['18'])
     end
+
+    it 'captures the transaction info' do
+      begin
+        Stp::Estado.new(File.read('spec/fixtures/estado_error.xml'))
+      rescue Stp::Devolucion => e
+        expect(e.id).to eq '3668949'
+        expect(e.resource_class).to eq Stp::Estado
+      end
+    end
   end
 end

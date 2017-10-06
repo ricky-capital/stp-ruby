@@ -1,5 +1,7 @@
 module Stp
   class Estado
+    EVENT_NAME = 'estado'.freeze
+
     include Validation
 
     attr_reader :id, :empresa, :folio_origen, :estado, :causa_devolucion
@@ -18,7 +20,9 @@ module Stp
           instance_variable_set("@#{key.snakecase}", value)
         end
 
-        raise Devolucion.new(@causa_devolucion, xml) unless success?
+        unless success?
+          raise Devolucion.new(@causa_devolucion, @id, self.class, xml)
+        end
       else
         raise Error.new('Malformed XML Error', xml)
       end
