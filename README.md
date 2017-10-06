@@ -41,7 +41,7 @@ Mount the STP engine
 
 ```ruby
 # config/routes.rb
-mount Stp::Engine => "/stp"
+mount Stp::Engine, at: '/stp', as: 'stp'
 ```
 
 #### Subscribing with blocks
