@@ -35,6 +35,8 @@ end
 
 ### Webhooks
 
+#### Routes
+
 Mount the STP engine
 
 ```ruby
@@ -42,10 +44,12 @@ Mount the STP engine
 mount Stp::Engine => "/stp"
 ```
 
-Subscribe to the `abono`, `estado` and `devolucion` events from your application:
+#### Subscribing with blocks
+
+Subscribe to the events from your application:
 
 ```ruby
-Stp.subscribe('abono') do |abono|
+Stp.subscribe(Stp::Abono::EVENT_NAME) do |abono|
   # Do something with abono object
   # abono
   # => #<Stp::Abono:0x007f8985c453e0
@@ -58,7 +62,7 @@ end
 ```
 
 ```ruby
-Stp.subscribe('estado') do |estado|
+Stp.subscribe(Stp::Estado::EVENT_NAME) do |estado|
   # Do something with estado object
   # estado
   # => #<Stp::Estado:0x007f8985bdeca8
@@ -67,11 +71,43 @@ end
 ```
 
 ```ruby
-Stp.subscribe('devolucion') do |devolucion|
+Stp.subscribe(Stp::Devolucion::EVENT_NAME) do |devolucion|
   # Do something with devolucion object
   # devolucion
   # => #<Stp::Devolucion: A solicitud del emisor
   #       @message="A solicitud del emisor" @id="3668949" @resource_class=Stp::Estado>
+end
+```
+
+#### Subscribing with objects
+
+You can also pass an object that responds to `call` instead of a block
+
+```ruby
+class AbonoObserver
+  def call(abono)
+    # Do something with abono object
+  end
+end
+
+Stp.subscribe(Stp::Abono::EVENT_NAME, AbonoObserver.new)
+```
+
+#### Without Rails
+
+You can also use this library outside of a Rails app. Just implement your own endpoint and instrument the event. Here's an using Sinatra:
+
+```ruby
+require 'sinatra'
+require 'stp'
+
+Stp.subscribe(Stp::Abono::EVENT_NAME) do |abono|
+  # Do something with abono object
+end
+
+post '/stp/abono' do
+  Stp.instrument(Stp::Abono::EVENT_NAME, resource: Stp::Abono.new(request.body.read))
+  200
 end
 ```
 
