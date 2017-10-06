@@ -20,14 +20,58 @@ Or install it yourself as:
 
 ## Usage
 
-### configuration
+### Configuration
 
 ```ruby
+# config/initializers/stp.rb
+
 Stp.configure do |config|
   # defaults to http://demo.stpmex.com:7004/speidemo/webservices/SpeiServices?WSDL
   config.wsdl = 'http://demo.stpmex.com:7004/speidemo/webservices/SpeiServices?WSDL'
   config.key_path = '/path/to/key.pem'
   config.key_passphrase = 'secret'
+end
+```
+
+### Webhooks
+
+Mount the STP engine
+
+```ruby
+# config/routes.rb
+mount Stp::Engine => "/stp"
+```
+
+Subscribe to the `abono`, `estado` and `devolucion` events from your application:
+
+```ruby
+Stp.subscribe('abono') do |abono|
+  # Do something with abono object
+  # abono
+  # => #<Stp::Abono:0x007f8985c453e0
+  #       @clave="1101", @fecha_operacion="20100323", @institucion_ordenante="846",
+  #       @institucion_beneficiaria="90646", @clave_rastreo="GEM801", @monto=200.0,
+  #       @nombre_beneficiario="alfredo", @tipo_cuenta_beneficiario="40",
+  #       @cuenta_beneficiario="110180077000000018", @rfc_curp_beneficiario="RFCBEN", @tipo_pago="7",
+  #       @tipo_operacion="4", @concepto_pago="prueba", @referencia_numerica="2", @empresa="STP">
+end
+```
+
+```ruby
+Stp.subscribe('estado') do |estado|
+  # Do something with estado object
+  # estado
+  # => #<Stp::Estado:0x007f8985bdeca8
+  #       @id="3668949", @empresa="prueba", @estado="Éxito">
+end
+```
+
+```ruby
+Stp.subscribe('devolucion') do |devolucion|
+  # Do something with devolucion object
+  # devolucion
+  # => #<Stp::Devolucion: A solicitud del emisor
+  #       @message="A solicitud del emisor" @id="3668949" @resource_class=Stp::Estado>
 end
 ```
 
