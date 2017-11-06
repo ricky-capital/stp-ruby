@@ -30,6 +30,9 @@ Stp.configure do |config|
   config.wsdl = 'http://demo.stpmex.com:7004/speidemo/webservices/SpeiServices?WSDL'
   config.key_path = '/path/to/key.pem'
   config.key_passphrase = 'secret'
+
+  # Only accept Webhook notifications from this IP
+  config.authorized_ip = '0.0.0.0'
 end
 ```
 
@@ -106,6 +109,8 @@ Stp.subscribe(Stp::Abono::EVENT_NAME) do |abono|
 end
 
 post '/stp/abono' do
+  # You should check here to make sure it's STP that's making the request…
+
   Stp.instrument(Stp::Abono::EVENT_NAME, resource: Stp::Abono.new(request.body.read))
   200
 end

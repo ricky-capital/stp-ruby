@@ -13,3 +13,4 @@
 
 # byebug
 .byebug_history
+spec/dummy/log/*

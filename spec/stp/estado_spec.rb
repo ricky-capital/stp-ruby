@@ -3,7 +3,7 @@ require 'support/signer_helpers'
 require 'support/log_interceptor'
 require 'savon/mock/spec_helper'
 
-RSpec.describe Stp::Abono do
+RSpec.describe Stp::Estado do
   def build_status_update
     Stp::Estado.new(File.read('spec/fixtures/estado.xml'))
   end

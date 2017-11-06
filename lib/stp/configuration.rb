@@ -8,7 +8,7 @@ module Stp
 
     SOAP_LOG_LEVELS = [:debug, :info, :warn, :error, :fatal]
 
-    attr_accessor :wsdl, :key_path, :key_passphrase, :log_level
+    attr_accessor :wsdl, :key_path, :key_passphrase, :log_level, :authorized_ip
 
     def initialize
       @wsdl =

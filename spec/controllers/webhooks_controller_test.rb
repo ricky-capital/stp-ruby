@@ -24,10 +24,9 @@ RSpec.describe Stp::WebhooksController, type: :controller do
 
   context 'when given a successful abono' do
     it 'notifies abono subscribers with an Abono object' do
-      post :abono, body: File.read('spec/fixtures/send_abono.xml')
+      post_abono
 
-      expect(response.code).to eq '200'
-      expect(@abonos.last).to be_a(Stp::Abono)
+      expect_successful_abono
     end
   end
 
@@ -62,16 +61,62 @@ RSpec.describe Stp::WebhooksController, type: :controller do
 
   context 'when given an incorrect xml' do
     it 'responds with a 400 Bad Request code and no subscriber is notified' do
-      @abonos.clear
-      @estados.clear
-      @devoluciones.clear
+      clear_all
 
       post :abono, body: File.read('spec/fixtures/estado.xml')
 
       expect(response.code).to eq '400'
+      expect_all_to_be_empty
+    end
+  end
+
+  context 'when configured with an authorized IP' do
+    it 'responds with unauthorized status when the IP does not match' do
+      clear_all
+
+      Stp.configure do |config|
+        config.authorized_ip = '1.1.1.1'
+      end
+
+      post_abono
+
+      expect(response.code).to eq '401'
+      expect_all_to_be_empty
+    end
+
+    it 'succeeds if the IP matches' do
+      clear_all
+
+      Stp.configure do |config|
+        config.authorized_ip = '0.0.0.0'
+      end
+
+      post_abono
+
+      expect_successful_abono
+    end
+  end
+
+  private
+
+    def post_abono
+      post :abono, body: File.read('spec/fixtures/send_abono.xml')
+    end
+
+    def clear_all
+      @abonos.clear
+      @estados.clear
+      @devoluciones.clear
+    end
+
+    def expect_all_to_be_empty
       expect(@abonos).to be_empty
       expect(@estados).to be_empty
       expect(@devoluciones).to be_empty
     end
-  end
+
+    def expect_successful_abono
+      expect(response.code).to eq '200'
+      expect(@abonos.last).to be_a(Stp::Abono)
+    end
 end

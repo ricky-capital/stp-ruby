@@ -1,5 +1,7 @@
 module Stp
   class WebhooksController < ActionController::Base
+    before_action :authorize!
+
     def abono
       process_webhook(Stp::Abono)
     end
@@ -10,8 +12,16 @@ module Stp
 
     private
 
-      def process_webhook(resource_class)
+      def authorize!
+        return if Stp.configuration.authorized_ip.nil?
 
+        if !request.remote_ip.match(Stp.configuration.authorized_ip)
+          Stp.logger.info "Unauthorized: #{request.remote_ip}"
+          head :unauthorized
+        end
+      end
+
+      def process_webhook(resource_class)
         begin
           @resource = resource_class.new(request.raw_post)
 
@@ -28,11 +38,11 @@ module Stp
       end
 
       def render_ok
-        render plain: '200 OK'
+        head :ok
       end
 
       def render_bad_request
-        render plain: '400 Bad Request', status: :bad_request
+        head :bad_request
       end
   end
 end
