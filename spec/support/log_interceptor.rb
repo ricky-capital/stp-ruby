@@ -16,4 +16,6 @@ module LogInterceptor
   def self.get_intercepted_request
     @@intercepted_request
   end
+
+  def self.level=(level); end
 end

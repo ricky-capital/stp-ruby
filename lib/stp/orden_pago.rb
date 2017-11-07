@@ -4,16 +4,6 @@ module Stp
 
     include Validation
 
-    client wsdl: Stp.configuration.wsdl
-
-    global :pretty_print_xml, true
-    global :log, true
-    global :log_level, Stp.configuration.soap_log_level
-    global :env_namespace, :soapenv
-    global :namespace_identifier, :h2h
-
-    operations :registra_orden
-
     attr_accessor :institucion_contraparte, :empresa, :fecha_operacion,
       :folio_origen, :clave_rastreo, :institucion_operante, :monto, :tipo_pago,
       :tipo_cuenta_ordenante, :nombre_ordenante, :cuenta_ordenante,
@@ -84,6 +74,16 @@ module Stp
     # usuario
 
     def initialize(params = {})
+      self.class.client wsdl: Stp.configuration.wsdl
+
+      self.class.global :pretty_print_xml, true
+      self.class.global :log, true
+      self.class.global :log_level, Stp.configuration.soap_log_level
+      self.class.global :env_namespace, :soapenv
+      self.class.global :namespace_identifier, :h2h
+
+      self.class.operations :registra_orden
+
       params.each do |key, value|
         instance_variable_set("@#{key}", value) if respond_to?(key)
       end
