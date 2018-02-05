@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'openssl'
 require 'base64'
 require 'savon'
@@ -10,11 +12,12 @@ require 'stp/configuration'
 # Version
 require 'stp/version'
 
-# Utils
-require 'stp/validation'
-
 # Errors
 require 'stp/error'
+
+# Utils
+require 'stp/validation'
+require 'stp/clabe'
 
 # Resources
 require 'stp/signer'
