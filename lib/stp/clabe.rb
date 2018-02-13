@@ -11,6 +11,14 @@ module Stp
       @clabe = clabe + verification_digit
     end
 
+    def bank
+      bank_info = Bank.from_code(@clabe[0..2])
+
+      raise Stp::Error, 'Código de banco inválido' if bank_info.nil?
+
+      bank_info.last
+    end
+
     private
 
     def valid?(key)

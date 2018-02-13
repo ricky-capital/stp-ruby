@@ -25,6 +25,7 @@ require 'stp/client'
 require 'stp/orden_pago'
 require 'stp/abono'
 require 'stp/estado'
+require 'stp/bank'
 
 # Engine
 require 'stp/engine' if defined?(Rails)
