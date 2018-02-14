@@ -12,11 +12,11 @@ module Stp
     end
 
     def bank
-      bank_info = Bank.from_code(@clabe[0..2])
-
-      raise Stp::Error, 'Código de banco inválido' if bank_info.nil?
-
       bank_info.last
+    end
+
+    def bank_code
+      bank_info.first
     end
 
     private
@@ -35,6 +35,14 @@ module Stp
                           .inject(:+) % 10
 
       ((10 - sum) % 10).to_s
+    end
+
+    def bank_info
+      bank_info = Bank.from_code(@clabe[0..2])
+
+      raise Stp::Error, 'Código de banco inválido' if bank_info.nil?
+
+      bank_info
     end
   end
 end

@@ -29,5 +29,9 @@ RSpec.describe Stp::Clabe do
     it 'gets bank' do
       expect(Stp::Clabe.new('00218003224094670').bank).to eq 'BANAMEX'
     end
+
+    it 'gets bank code' do
+      expect(Stp::Clabe.new('00218003224094670').bank_code).to eq '40002'
+    end
   end
 end
